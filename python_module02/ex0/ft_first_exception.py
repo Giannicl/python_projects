@@ -1,4 +1,5 @@
 def check_temperature(temp_str):
+   ''' This function checks if the user had passed the correct temperature for plants'''
     try:
         user_input = int(temp_str)
     except:
@@ -17,6 +18,8 @@ def check_temperature(temp_str):
 
 
 def test_temperature_input():
+    ''' This function test the error messages for different input and the result for a correct input'''
+
     print("=== Garden Temperature Checker ===")
     
     print("\nTesting temperature: 25")
