@@ -10,12 +10,17 @@ class WaterError(GardenError):
     ''' This is a custom error class specifically for water errors'''
     pass
 
+class SunError(GardenError):
+    ''' This is a custom error class specifically for sun errors'''
+    pass
+
+
 class GardenManager:
     def add_plants(plant_list, plant):
         if plant is None:
             raise PlantError("Plant name cannot be empty!")
         plant_list += [plant]
-        print(f"{plant} successfully")
+        print(f"Added {plant} successfully")
         return plant_list
 
     def water_plants(plant_list):
@@ -27,36 +32,47 @@ class GardenManager:
                 try:
                     if plant_list[index] is None:
                         raise PlantError("Cannot water none - invalid plant!") 
-                        return
                     print (f"Watering {plant_list[index]}")
                     index += 1
                 except IndexError:
                     break 
         finally:
             print("Closing watering system (cleanup)")
-        
-        print("Watering completed successfully!")
-
 
     
     def check_plant_health(plant_name, water_level, sunlight_hours):
-         ''' This function checks if the conditions to grow a healthy plant are met'''
+        ''' This function checks if the conditions to grow a healthy plant are met'''
         if plant_name is None:
-            raise ValueError("Plant name cannot be empty!")
+            raise PlantError("Plant name cannot be empty!")
         elif water_level < 1 or water_level > 10:
-            raise ValueError("Water level 15 is too high (max 10)")
+            raise WaterError("Water level 15 is too high (max 10)")
         elif sunlight_hours <= 2:
-            raise ValueError("Sunlight hours 0 is too low (min 2)")
-        return print(f"Plant {plant_name} is healthy!")
+            raise SunError("Sunlight hours 0 is too low (min 2)")
+        return print(f"{plant_name}: healthy (water: {water_level}, sun: {sunlight_hours})")
 
 
 def main():
     plant_list = []
     print("Adding plants to garden")
-    add_plants(plant_list, "tomato")
-    add_plants(plant_list, "lettuce")
-
-
+    try:
+        plant_list = GardenManager.add_plants(plant_list, "tomato")
+        plant_list = GardenManager.add_plants(plant_list, "lettuce")
+        plant_list = GardenManager.add_plants(plant_list, "carrots")
+        plant_list = GardenManager.add_plants(plant_list, None)
+    except PlantError as e:
+        print(f"Error adding plant: {e}")
+    print("\nWatering plants...")
+    try:
+        GardenManager.water_plants(plant_list)
+    except PlantError as e:
+        print("Error: {e}")
+    print("\nChecking plant health...")
+    try:
+        GardenManager.check_plant_health(plant_list[0], 5, 8)
+        GardenManager.check_plant_health(plant_list[1], 15, 8)
+    except (PlantError, SunError, WaterError) as e :
+        print(f"Error checking {plant_list[1]}: {e}")
+    print("\nTesting error recovery...")
 
 
 main()
