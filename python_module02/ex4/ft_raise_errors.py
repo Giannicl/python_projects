@@ -33,5 +33,3 @@ def test_plant_checks():
         print(f"Error: {e}")
     print("\nAll error raising tests completed!")
 
-
-test_plant_checks()
