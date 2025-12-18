@@ -16,6 +16,7 @@ class SunError(GardenError):
 
 
 class GardenManager:
+    ''' This is a GardenManager class that has methods to add plants, water plants, and check health'''
     water_in_tank = 4
 
     @classmethod
