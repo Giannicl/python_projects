@@ -30,7 +30,4 @@ def command_interpreter():
     elif len(sys.argv) == 4:
         command_quest1()
     elif len(sys.argv) == 2:
-        command_quest2()
 
-
-command_interpreter()
