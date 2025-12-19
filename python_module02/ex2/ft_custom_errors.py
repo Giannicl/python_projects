@@ -1,17 +1,23 @@
 class GardenError(Exception):
-    ''' This is a custom error class for garden errors'''
+    """This is a custom error class for garden errors"""
+
     pass
+
 
 class PlantError(GardenError):
-    ''' This is a custom error class specifically for plant errors'''
+    """This is a custom error class specifically for plant errors"""
+
     pass
+
 
 class WaterError(GardenError):
-    ''' This is a custom error class specifically for water errors'''
+    """This is a custom error class specifically for water errors"""
+
     pass
 
+
 def raise_custom_errors():
-    ''' This function raises the custom error classes'''
+    """This function raises the custom error classes"""
     print("=== Custom Garden Errors Demo ===")
 
     print("\nTesting PlantError...")
@@ -26,7 +32,8 @@ def raise_custom_errors():
         print(f"Caught WaterError: {e}")
     print("\nTesting catching all garden errors...")
     try:
-        raise GardenError("Caught a garden error: The tomato plant is wilting!")
+        raise GardenError("Caught a garden error:"
+                          "The tomato plant is wilting!")
     except GardenError as e:
         print(f"Caught a garden error: {e}")
     try:
@@ -34,5 +41,3 @@ def raise_custom_errors():
     except GardenError as e:
         print(f"Caught a garden error: {e}")
     print("\nAll custom error types work correctly!")
-
-
