@@ -54,7 +54,7 @@ def show_stats():
             print(f"Error: {e}")
         try:
             total = total_score(players_score)
-            print(f"Total players: {total}")
+            print(f"Total score: {total}")
         except TypeError as e:
             print(f"Error: {e}")
         try:
