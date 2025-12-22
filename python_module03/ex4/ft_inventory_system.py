@@ -1,0 +1,60 @@
+def add_player(inventory, player):
+    inventory[player] = {}
+
+def add_item(inventory, player, item):
+    inventory[player][item] = {}
+
+def add_feature(inventory, player, item, feature, value):
+    inventory[player][item][feature] = value
+
+
+def test_inventory_system():
+
+    inventory = {}
+    player1 = "Alice"
+    item = "sword"
+    add_player(inventory, player1)
+    add_item(inventory, player1, item)
+    add_feature(inventory, player1, item, "type", "weapon")
+    add_feature(inventory, player1, item, "rarity", "rare")
+    add_feature(inventory, player1, item, "price", 500)
+    add_feature(inventory, player1, item, "amount", 1)
+    item = "potion"
+    add_item(inventory, player1, item)
+    add_feature(inventory, player1, item, "type", "consumable")
+    add_feature(inventory, player1, item, "rarity", "common")
+    add_feature(inventory, player1, item, "price", 50)
+    add_feature(inventory, player1, item, "amount", 5)
+    item = "shield"
+    add_item(inventory, player1, item)
+    add_feature(inventory, player1, item, "type", "armor")
+    add_feature(inventory, player1, item, "rarity", "uncommon")
+    add_feature(inventory, player1, item, "price", 200)
+    add_feature(inventory, player1, item, "amount", 1)
+
+    print("=== Player Inventory System ===")
+    print("\n=== Alice's Inventory ===")
+    print(f"sword ({inventory["Alice"]["sword"]["type"]}, {inventory["Alice"]["sword"]["rarity"]}): " 
+    f"{inventory["Alice"]["sword"]["amount"]}x @ {inventory["Alice"]["sword"]["price"]} gold each " 
+    f"= {inventory["Alice"]["sword"]["amount"] * inventory["Alice"]["sword"]["price"]} gold")
+    print(f"potion ({inventory["Alice"]["potion"]["type"]}, {inventory["Alice"]["potion"]["rarity"]}): " 
+    f"{inventory["Alice"]["potion"]["amount"]}x @ {inventory["Alice"]["potion"]["price"]} gold each " 
+    f"= {inventory["Alice"]["potion"]["amount"] * inventory["Alice"]["potion"]["price"]} gold")
+    print(f"shield ({inventory["Alice"]["shield"]["type"]}, {inventory["Alice"]["shield"]["rarity"]}): " 
+    f"{inventory["Alice"]["shield"]["amount"]}x @ {inventory["Alice"]["shield"]["price"]} gold each " 
+    f"= {inventory["Alice"]["shield"]["amount"] * inventory["Alice"]["shield"]["price"]} gold")
+    sword_value =   (inventory["Alice"]["shield"]["amount"] * inventory["Alice"]["sword"]["price"])
+    potion_value =  (inventory["Alice"]["potion"]["amount"] * inventory["Alice"]["potion"]["price"])
+    shield_value =  (inventory["Alice"]["shield"]["amount"] * inventory["Alice"]["shield"]["price"])
+    inventory_value = sword_value + potion_value + shield_value
+    item_count = (inventory["Alice"]["sword"]["amount"] + inventory["Alice"]["potion"]["amount"] + 
+                 inventory["Alice"]["shield"]["amount"]) 
+
+    print(f"\nInventory value: {inventory_value} gold")
+    print(f"\nItem count: {item_count} items")
+    print(f"\nCategories: weapon({len(inventory["Alice"]["sword"]["type"]["weapon"])}), "
+          f"consumable(), armor()")
+
+
+   
+test_inventory_system()
