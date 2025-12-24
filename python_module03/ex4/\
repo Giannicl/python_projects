@@ -1,4 +1,4 @@
-def add_player(inventory, player)-> None:
+def add_player(inventory, player):
     inventory[player] = {}
 
 def add_item(inventory, player, item):
@@ -7,18 +7,14 @@ def add_item(inventory, player, item):
 def add_feature(inventory, player, item, feature, value):
     inventory[player][item][feature] = value
 
-def count_amount_type(inventory, player, feature, value):
+def count_value(inventory, player, item, category):
     count = 0
-    for item_detail in inventory[player].values():
-        if item_detail[feature] == value:
-            count += item_detail["amount"]
+    for i in inventory[player][item].values():
+        if i is cateogy:
+            count += 1
     return count
 
-def transfer_items(inventory, player1, player2, item, feature, quantity):
-    inventory[player1][item][feature] -= quantity
-    inventory[player2][item][feature] += quantity
-    print("Transaction successful!")
-    
+
 def test_inventory_system():
 
     inventory = {}
@@ -42,13 +38,6 @@ def test_inventory_system():
     add_feature(inventory, player1, item, "rarity", "uncommon")
     add_feature(inventory, player1, item, "price", 200)
     add_feature(inventory, player1, item, "amount", 1)
-    player2 = "Bob"
-    add_player(inventory, player2)
-    add_item(inventory, player2, "potion")
-    add_feature(inventory, player2,"potion", "type", "consumable")
-    add_feature(inventory, player2, "potion", "rarity", "common")
-    add_feature(inventory, player2, "potion", "price", 50)
-    add_feature(inventory, player2, "potion", "amount", 1)
 
     print("=== Player Inventory System ===")
     print("\n=== Alice's Inventory ===")
@@ -67,18 +56,12 @@ def test_inventory_system():
     inventory_value = sword_value + potion_value + shield_value
     item_count = (inventory["Alice"]["sword"]["amount"] + inventory["Alice"]["potion"]["amount"] + 
                  inventory["Alice"]["shield"]["amount"]) 
+
     print(f"\nInventory value: {inventory_value} gold")
     print(f"\nItem count: {item_count} items")
-    print(f"Categories: weapon({count_amount_type(inventory, player1, "type", "weapon")}), "
-          f"consumable({count_amount_type(inventory, player1, "type", "consumable")}), "
-            f"armor({count_amount_type(inventory, player1, "type", "armor")})")
-    print("\n=== Transaction: Alice gives Bob 2 potions ===")
-    transfer_items(inventory, player1, player2, "potion", "amount", 2)
-    print("\n=== Updated Inventories ===")
-    inventory[player1]["potion"].update({"amount": 3})
-    inventory[player2]["potion"].update({"amount": 2})
-    print(f"Alice potions: {inventory[player1]["potion"]["amount"]}")
-    print(f"Bob potions: {inventory[player2]["potion"]["amount"]}")
-    print("\n=== Inventory Analytics ===")
+    print(f"\nCategories: weapon({count_value(inventory, "weapon")}), "
+          f"consumable(), armor()")
+
+
    
 test_inventory_system()
