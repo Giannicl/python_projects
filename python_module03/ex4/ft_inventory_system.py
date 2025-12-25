@@ -1,3 +1,6 @@
+from sys import warnoptions
+
+
 def add_player(inventory, player)-> None:
     inventory[player] = {}
 
@@ -18,7 +21,53 @@ def transfer_items(inventory, player1, player2, item, feature, quantity):
     inventory[player1][item][feature] -= quantity
     inventory[player2][item][feature] += quantity
     print("Transaction successful!")
+
+def most_valuable_player(inventory):
+    most_valuable = ""
+    max_gold = 0
+    gold = 0
+    for player in inventory.keys():
+        gold = inventory[player]["gold"]["amount"]
+            
+        if gold > max_gold:
+            max_gold = gold
+            most_valuable = player
+    return most_valuable
+
+def player_most_items(inventory):
+    player_most_items = ""
+    max_item_count = 0
+    count = 0
+    for player in inventory.keys():
+        count = len(inventory[player])
+        if count > max_item_count:
+            max_item_count = count
+            player_most_items = player
+    return player_most_items
     
+def rarest_items(inventory):
+    count = 0
+    list_rarest_items = []
+    list_size = 0
+    for player in inventory.keys():
+        for item in inventory[player].keys():
+            count = 0
+            for other_player in inventory.keys():
+                if item in inventory[other_player]:
+                    count += 1
+            if count == 1:
+                list_rarest_items += [item]
+    list_size = len(list_rarest_items)
+    i = 0
+    while i < list_size:
+        
+        if i < list_size - 1:
+            print(f"{list_rarest_items[i]}", end=', ')
+        else:
+            print(f"{list_rarest_items[i]}")
+        i += 1
+
+        
 def test_inventory_system():
 
     inventory = {}
@@ -42,6 +91,16 @@ def test_inventory_system():
     add_feature(inventory, player1, item, "rarity", "uncommon")
     add_feature(inventory, player1, item, "price", 200)
     add_feature(inventory, player1, item, "amount", 1)
+    item = "gold"
+    add_item(inventory, player1, item)
+    add_feature(inventory, player1, item, "type", "currency")
+    add_feature(inventory, player1, item, "amount", 850)
+    item = "magic_ring"
+    add_item(inventory, player1, item)
+    add_feature(inventory, player1, item, "type", "relic")
+    add_feature(inventory, player1, item, "rarity", "rare")
+    add_feature(inventory, player1, item, "price", 20000)
+    add_feature(inventory, player1, item, "amount", 1)
     player2 = "Bob"
     add_player(inventory, player2)
     add_item(inventory, player2, "potion")
@@ -49,6 +108,21 @@ def test_inventory_system():
     add_feature(inventory, player2, "potion", "rarity", "common")
     add_feature(inventory, player2, "potion", "price", 50)
     add_feature(inventory, player2, "potion", "amount", 1)
+    item = "gold"
+    add_item(inventory, player2, item)
+    add_feature(inventory, player2, item, "amount", 300)
+    item = "shield"
+    add_item(inventory, player2, item)
+    add_feature(inventory, player2, item, "type", "armor")
+    add_feature(inventory, player2, item, "rarity", "uncommon")
+    add_feature(inventory, player2, item, "price", 100)
+    add_feature(inventory, player2, item, "amount", 3)
+    item = "potion"
+    add_item(inventory, player2, item)
+    add_feature(inventory, player2, item, "type", "consumable")
+    add_feature(inventory, player2, item, "rarity", "common")
+    add_feature(inventory, player2, item, "price", 50)
+    add_feature(inventory, player2, item, "amount", 5)
 
     print("=== Player Inventory System ===")
     print("\n=== Alice's Inventory ===")
@@ -68,7 +142,7 @@ def test_inventory_system():
     item_count = (inventory["Alice"]["sword"]["amount"] + inventory["Alice"]["potion"]["amount"] + 
                  inventory["Alice"]["shield"]["amount"]) 
     print(f"\nInventory value: {inventory_value} gold")
-    print(f"\nItem count: {item_count} items")
+    print(f"Item count: {item_count} items")
     print(f"Categories: weapon({count_amount_type(inventory, player1, "type", "weapon")}), "
           f"consumable({count_amount_type(inventory, player1, "type", "consumable")}), "
             f"armor({count_amount_type(inventory, player1, "type", "armor")})")
@@ -80,5 +154,10 @@ def test_inventory_system():
     print(f"Alice potions: {inventory[player1]["potion"]["amount"]}")
     print(f"Bob potions: {inventory[player2]["potion"]["amount"]}")
     print("\n=== Inventory Analytics ===")
-   
+    most_valuable = most_valuable_player(inventory)
+    print(f"Most valuable player: {most_valuable} ({inventory[most_valuable]["gold"]["amount"]} gold)")
+    most_items = player_most_items(inventory)
+    print(f"Most items: {most_items} ({len(inventory[most_items])} items)")
+    print("Rarest items: ", end='')
+    rarest_items(inventory)
 test_inventory_system()
