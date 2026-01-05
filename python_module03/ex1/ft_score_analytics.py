@@ -1,7 +1,9 @@
 import sys
 
+
 def add_score(players_score):
-    """ This function accepts scores of players"""
+    """This function creates, and returns,
+    a list with the added players score"""
     if len(sys.argv) < 2:
         raise ValueError(f"Usage: python3 {sys.argv[0]} <score1> <score2> ...")
     if len(sys.argv) == 2:
@@ -13,31 +15,43 @@ def add_score(players_score):
             i += 1
     return players_score
 
+
 def count_players(players_score):
+    """This function counts and returns the amount of players scores
+    that were added"""
     return len(players_score)
 
+
 def total_score(players_score):
-    """ This function adds all the scores together"""
+    """This function returns the sum of all the scores"""
     return sum(players_score)
 
+
 def average_score(players_score):
+    """This function returns the average of all scores"""
     return sum(players_score) / len(players_score)
 
+
 def max_score(players_score):
-    """ This function returns the highest score"""
+    """This function returns the highest score"""
     return max(players_score)
 
+
 def min_score(players_score):
-    """ This function returns the lowest score"""
+    """This function returns the lowest score"""
     return min(players_score)
 
+
 def range_score(players_score):
+    """This function returns the range between the maximum and minimum score"""
     return max(players_score) - min(players_score)
 
 
 def show_stats():
-    """ This function shows all the scores, the sum of the scores, the high score and the lowest score"""
-    print("=== Player Score Analytics ===")    
+    """This function displays the statistice of all the scores (all the scores,
+    the amount of players added, the sum of all scores,
+    the highscore, the lowest score and the range)"""
+    print("=== Player Score Analytics ===")
     players_score = []
     if len(sys.argv) > 2:
         try:
@@ -74,7 +88,7 @@ def show_stats():
             print(f"Low score: {lowest_score}")
         except ValueError as e:
             print(f"Error: {e}")
-        except TypeError:
+        except TypeError as e:
             print(f"Error: {e}")
         try:
             range = range_score(players_score)
@@ -89,5 +103,3 @@ def show_stats():
             print(f"Scores processed: {players_score}")
         except ValueError as e:
             print(f"No scores provided. {e}")
-
-show_stats()
