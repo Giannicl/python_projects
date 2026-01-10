@@ -1,3 +1,6 @@
+def get_score(player):
+    return player["score"]
+
 def test_analytics_dashboard():
     players_data = [
         {
@@ -75,6 +78,18 @@ def test_analytics_dashboard():
     ]
     unique_achievements = {item for item in list_achievements}
     print(f"Unique achievements: {unique_achievements}")
+    active_regions = {player["region"] for player in players_data if player["active"] == True} 
+    print(f"Active regions: {active_regions}")
+    print("=== Combined Analysis ===")
+    total_players = len(players_data)
+    print(f"Total players: {total_players}")
+    total_unique_achievements = len(unique_achievements)
+    print(f"Total unique achievements: {total_unique_achievements}")
+    average_score = sum([player["score"] for player in players_data]) / total_players
+    print(f"Average score: {average_score}")
+    top_performer = max(players_data, key=get_score)
+    print(f"Top performer: {top_performer["name"]} ({top_performer["score"]} points, {len(top_performer["achievements"])} achievements)")
 
+    
 
 test_analytics_dashboard()
