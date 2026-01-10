@@ -1,8 +1,10 @@
 def get_score(player):
+    """ This function retrieves the score within a dictionary"""
     return player["score"]
 
 
 def test_analytics_dashboard():
+    """ This fuction tests the analytics dashboard"""
     players_data = [
         {
             "name": "alice",
