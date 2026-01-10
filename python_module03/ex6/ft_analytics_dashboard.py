@@ -1,6 +1,7 @@
 def get_score(player):
     return player["score"]
 
+
 def test_analytics_dashboard():
     players_data = [
         {
@@ -20,7 +21,7 @@ def test_analytics_dashboard():
             "name": "bob",
             "score": 1800,
             "active": True,
-            "achievements": ["first_kill", "level_10", "boss_slayer"],
+            "achievements": ["first_kill", "ld evel_10", "boss_slayer"],
             "region": "east",
         },
         {
@@ -47,20 +48,24 @@ def test_analytics_dashboard():
         },
     ]
     print("=== Game Analytics Dashboard ===")
-    high_scorers = [player["name"] for player in players_data if player["score"] > 2000]
+    high_scorers = [player["name"] for player in players_data
+                    if player["score"] > 2000]
     print(f"High scorers (>2000): {high_scorers} ")
     scores_doubled = [player["score"] * 2 for player in players_data]
     print(f"Scores doubled: {scores_doubled}")
-    active_players = [player["name"] for player in players_data if player["active"]]
+    active_players = [player["name"] for player in players_data
+                      if player["active"]]
     print(f"Active players: {active_players}")
     print("\n=== Dict Comprehension Examples ===")
     players_scores = {
-        player["name"]: player["score"] for player in players_data if player["active"]
+        player["name"]: player["score"] for player in players_data
+        if player["active"]
     }
     print(f"Player scores: {players_scores}")
     score_categories = {
         "high": sum(1 for player in players_data if player["score"] > 2000),
-        "medium": sum(1 for player in players_data if 1500 < player["score"] <= 2000),
+        "medium": sum(1 for player in players_data
+                      if 1500 < player["score"] <= 2000),
         "low": sum(1 for player in players_data if player["score"] <= 1500),
     }
     print(f"Score categories: {score_categories}")
@@ -78,18 +83,25 @@ def test_analytics_dashboard():
     ]
     unique_achievements = {item for item in list_achievements}
     print(f"Unique achievements: {unique_achievements}")
-    active_regions = {player["region"] for player in players_data if player["active"] == True} 
+    active_regions = {
+        player["region"] for player in players_data
+        if player["active"] is True
+    }
     print(f"Active regions: {active_regions}")
-    print("=== Combined Analysis ===")
+    print("\n=== Combined Analysis ===")
     total_players = len(players_data)
     print(f"Total players: {total_players}")
     total_unique_achievements = len(unique_achievements)
     print(f"Total unique achievements: {total_unique_achievements}")
-    average_score = sum([player["score"] for player in players_data]) / total_players
+    average_score = sum([player["score"] for player
+                         in players_data]) / total_players
     print(f"Average score: {average_score}")
     top_performer = max(players_data, key=get_score)
-    print(f"Top performer: {top_performer["name"]} ({top_performer["score"]} points, {len(top_performer["achievements"])} achievements)")
+    print(
+        f"Top performer: {top_performer["name"]}"
+        f"({top_performer["score"]} points,"
+        f"{len(top_performer["achievements"])} achievements)"
+    )
 
-    
 
 test_analytics_dashboard()
