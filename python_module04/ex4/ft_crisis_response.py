@@ -23,6 +23,8 @@ def crisis_handler(filename):
         print("STATUS: Crisis handled, failsafe activated")
 
 def main():
+    """ This function calls the crisis_handler function with
+    with several files"""
     print("=== CYBER ARCHIVES - CRISIS RESPONSE SYSTEM ===")
     crisis_handler("./lost_archive.txt")
     crisis_handler("./classified_data.txt")
