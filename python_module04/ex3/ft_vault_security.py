@@ -1,22 +1,22 @@
 def main():
-    print("=== cyber archives - vault security system ===")
-    print("\nInitiating secure vault access...")
-    print("Vault connection established with failsafe protocols")
-    print("\nSECURE EXTRACTION:")
+    try:
+        print("=== cyber archives - vault security system ===")
+        print("\ninitiating secure vault access...")
+        print("vault connection established with failsafe protocols")
+        print("\nsecure extraction:")
+    
+        filename = "classified_data.txt"
+        filename1 = "security_protocols.txt"
+        with open(filename, "r") as file:
+            content = file.read()
+            print(content)
+        print("\nsecure preservation:")
+        with open(filename1, "r") as file:
+            content = file.read()
+            print(content)
+        print("vault automatically sealed upon completion")
+        print("\nvault automatically sealed upon completion")
+    except Exeption as e:
+        print(f"ERROR: Vault operation failed - {e}")
+    
 
-    filename = "classified_data.txt"
-    filename1 = "security_protocols.txt"
-    with open(filename, "r") as file:
-        content = file.read()
-        print(content)
-    print("\nSECURE PRESERVATION:")
-    with open(filename1, "r") as file:
-        content = file.read()
-        print(content)
-    print("Vault automatically sealed upon completion")
-    print("\nVault automatically sealed upon completion")
-        
-
-
-
-main()
