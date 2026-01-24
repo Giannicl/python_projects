@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Dict, List, Any, Protocol
-from python_module07.ex0.Card import Card
+from ex0.Card import Card
 
 
 class CreatureCard(Card):
@@ -23,3 +23,13 @@ class CreatureCard(Card):
             "damage_dealt": self.attack,
             "combat_resolved": True,
         }
+
+    def get_card_info(self) -> dict:
+        info = super().get_card_info()
+        info['type'] = "Creature"
+        info['attack'] = self.attack
+        info['health'] = self.health
+        return info
+
+
+
