@@ -19,15 +19,15 @@ def main():
     print(f"Deck stats: {deck.get_deck_stats()}")
 
     print("\nDrawing and playing cards:")
-
-    print(f"\nDrew: {deck.draw_card().name} (Spell)")
-    print(f"Play result: {lightning_bolt.play({})}")
-
-    print(f"\nDrew: {deck.draw_card().name} (Artifact)")
-    print(f"Play result: {mana_crystal.play({})}")
-
-    print(f"\nDrew: {deck.draw_card().name} (Creature)")
-    print(f"Play result: {fire_dragon.play({})}")
+    card1 = deck.draw_card()
+    print(f"\nDrew: {card1.name} (Spell)")
+    print(f"Play result: {card1.play({})}")
+    card2 = deck.draw_card()
+    print(f"\nDrew: {card2.name} (Artifact)")
+    print(f"Play result: {card2.play({})}")
+    card3 = deck.draw_card()
+    print(f"\nDrew: {card3.name} (Creature)")
+    print(f"Play result: {card3.play({})}")
 
     print("\nPolymorphism in action: Same interface, different card behaviors!")
 
