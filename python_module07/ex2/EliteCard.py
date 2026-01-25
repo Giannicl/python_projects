@@ -16,7 +16,7 @@ class EliteCard(Combatable, Magical, Card):
         combat_type: str,
     ):
         super().__init__(name, cost, rarity)
-        self.attack = attack
+        self.attack_power = attack
         self.power = self.cost * 3
         self.health = health
         self.mana = mana
@@ -35,7 +35,7 @@ class EliteCard(Combatable, Magical, Card):
         return {
             "attacker": self.name,
             "target": target,
-            "damage": self.attack,
+            "damage": self.attack_power,
             "combat_type": self.combat_type,
         }
 
@@ -58,7 +58,6 @@ class EliteCard(Combatable, Magical, Card):
             "caster": self.name,
             "spell": spell_name,
             "targets": targets,
-            "damage": self.power,
             "mana_used": mana_cost,
         }
 
@@ -68,7 +67,7 @@ class EliteCard(Combatable, Magical, Card):
 
     def get_combat_stats(self):
         return {
-            "attack_power": self.attack,
+            "attack_power": self.attack_power,
             "health": self.health,
             "combat_type": self.combat_type,
             "defence": self.defence,
