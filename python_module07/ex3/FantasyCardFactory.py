@@ -5,7 +5,7 @@ from ex0.CreatureCard import CreatureCard
 from ex1.SpellCard import SpellCard
 from ex1.ArtifactCard import ArtifactCard
 from typing import Dict
-from random import randint, random, shuffle
+import random
 
 
 class FantasyCardFactory(CardFactory):
@@ -87,25 +87,27 @@ class FantasyCardFactory(CardFactory):
             cost = random.randint(1, 6)
             return ArtifactCard("Unknown Spell", cost, rarity, durability, effect)
         else:
-            return SpellCard("Stone", 5, "Common", 0, "None")
+            return SpellCard("Stone", 5, "Common", 0)
 
     def create_themed_deck(self, size: int) -> Dict:
+        deck = []
+        get_supported_types = self.get_supported_types()
 
-        supported_types = get_supported_types()
-        creator_types = [CreatureCard, SpellCard, ArtifactCard]
-        creator = random.choice(creator_types)
-
-        if creator == CreatureCard:
-            creature_types = supported_types("creatures")
-            creature = random.choice(creature_types)
-
-            if creature == "dragon":
-                cost = 8
-                rarity = "Legendary"
-                attack = 10
-                health = 8
-
-            creator(creature, cost, rarity, attack, health)
+        item_count = size
+        while size > 0:
+            card_type = random.choice(["creatures", "spells", "artifacts"])
+            if card_type == "creatures":
+                card_name = random.choice(get_supported_types[card_type])
+                card = self.create_creature(card_name)
+            elif card_type == "spells":
+                card_name = random.choice(get_supported_types[card_type])
+                card = self.create_spell(get_supported_types[card_name])
+            else:
+                card_name = random.choice(get_supported_types[card_type])
+                card = self.create_artifact(get_supported_types[card_name]) 
+            deck = deck + [card]
+            size = size - 1
+        return {'deck': deck, 'size': item_count, 'theme': 'Fantasy'} 
 
     def get_supported_types(self) -> Dict:
         return {
