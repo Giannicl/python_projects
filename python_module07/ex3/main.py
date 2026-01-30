@@ -16,7 +16,7 @@ def main():
     print("\nSimulating aggressive turn...")
     fire_dragon = card_factory.create_creature("Fire Dragon")
     goblin_warrior = card_factory.create_creature("Goblin Warrior")
-    lightning_bolt = card_factory.create_creature("Lightning Bolt")
+    lightning_bolt = card_factory.create_spell("Lightning Bolt")
 
     hand = [goblin_warrior, fire_dragon, lightning_bolt]
     simulating_aggressive_strategy = strategy.execute_turn(hand, []) 

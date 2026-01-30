@@ -28,7 +28,7 @@ class EliteCard(Combatable, Magical, Card):
         return {
             "card_played": self.name,
             "mana_used": self.cost,
-            "effect": "elite warrior summoned to the battlefield",
+            "effect": "Elite warrior summoned to the battlefield",
         }
 
     def attack(self, target: str) -> Dict:
