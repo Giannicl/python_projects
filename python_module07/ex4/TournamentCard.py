@@ -1,13 +1,12 @@
 from ex0.Card import Card
 from ex2.Combatable import Combatable
 from ex4.Rankable import Rankable
-from typing import Dict
+from typing import Dict, List
     
 
 class TournamentCard(Card, Combatable, Rankable):
     def __init__(self, name: str, cost: int, rarity: str, 
-                 attack: int, health: int, combat_type: str,
-                 interaces: List):
+                 attack: int, health: int, combat_type: str):
         super().__init__(name, cost, rarity)
         self.attack_power = attack
         self.health = health
@@ -16,7 +15,6 @@ class TournamentCard(Card, Combatable, Rankable):
         self.losses = 0
         self.score = 0
         self.combat_type = combat_type
-        self.interaces = interaces
 
     def play(self, game_state: Dict) -> Dict:
         return {
