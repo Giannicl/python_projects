@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field, ValidationError
+from pydantic import BaseModel, Field, ValidationError, model_validator
 from enum import Enum
 from typing import Optional
 from datetime import datetime
@@ -41,3 +41,44 @@ class AlienContact(BaseModel):
             if self.message_received is None:
                 raise ValueError("Strong signals should include received messages")
         return self
+
+def main() -> None:
+    try:
+        print("Alien Contact Log Validation")
+        print("======================================")
+        alien_contact = AlienContact(
+                        contact_id = "AC_2024_001",
+                        timestamp = "2015-08-01T01:01:01",
+                        location = "Area 51, Nevada",
+                        contact_type = "radio",
+                        signal_strength = 8.5,
+                        duration_minutes = 45,
+                        witness_count = 5,
+                        message_received = "Greetings from Zeta Reticuli",
+        )
+        print("Valid contact report:")
+        print(f"ID: {alien_contact.contact_id}")
+        print(f"Type: {alien_contact.contact_type}")
+        print(f"Location: {alien_contact.location}")
+        print(f"Signal: {alien_contact.signal_strength}/10")
+        print(f"Duration: {alien_contact.duration_minutes} minutes")
+        print(f"Witnesses: {alien_contact.witness_count}")
+        print(f"Message: '{alien_contact.message_received}'")
+        print("=====================================")
+        print("Expected validation error:")
+        alien_contact2 = AlienContact(
+                        contact_id = "AC_2024_001",
+                        timestamp = "2015-08-01T01:01:01",
+                        location = "Area 51, Nevada",
+                        contact_type = "telepathic",
+                        signal_strength = 8.5,
+                        duration_minutes = 45,
+                        witness_count = 2,
+                        message_received = "Greetings from Zeta Reticuli",
+        )
+    except ValidationError:
+        print("Telepathic contact requires at least 3 witnesses")
+    except Exception as e:
+        print(e)
+
+main()
