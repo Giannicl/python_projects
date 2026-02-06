@@ -58,7 +58,7 @@ def main() -> None:
         )
         print("Valid contact report:")
         print(f"ID: {alien_contact.contact_id}")
-        print(f"Type: {alien_contact.contact_type}")
+        print(f"Type: {alien_contact.contact_type.value}")
         print(f"Location: {alien_contact.location}")
         print(f"Signal: {alien_contact.signal_strength}/10")
         print(f"Duration: {alien_contact.duration_minutes} minutes")
@@ -76,6 +76,7 @@ def main() -> None:
                         witness_count = 2,
                         message_received = "Greetings from Zeta Reticuli",
         )
+       
     except ValidationError:
         print("Telepathic contact requires at least 3 witnesses")
     except Exception as e:
