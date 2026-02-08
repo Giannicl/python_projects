@@ -67,3 +67,22 @@ class MageGuild:
         if MageGuild.validate_mage_name(spell_name):
             return f"Successfully cast {spell_name} with power {power}" 
         return "Invalid spell name"
+
+
+def main() -> None:
+    print("Testing spell timer...")
+    @spell_timer
+    def fireball():
+        return "Fireball cast!" 
+    print(f"Result: {fireball()}")
+
+    print("\nTesting MageGuild...")
+    mage_guild = MageGuild()
+    print(f"{mage_guild.validate_mage_name("Fireball")}")
+    print(f"{mage_guild.validate_mage_name("T@!=")}")
+    print(f"{mage_guild.cast_spell("Fireball", 15)}")
+    print(f"{mage_guild.cast_spell("Tornado", 5)}")
+
+
+
+main()
