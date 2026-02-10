@@ -1,10 +1,12 @@
-def create_achievements(game_achievements, player, achievements):
+def create_achievements(
+    game_achievements: dict, player: str, achievements: set
+) -> dict:
     """This function creates a dictionary with player/ achievement pairs"""
     game_achievements[player] = achievements
     return game_achievements
 
 
-def filter_unique(tuple_players):
+def filter_unique(tuple_players: tuple) -> set:
     """This function filters all the unique achievements
     from the totality of achievements"""
     if len(tuple_players) == 2:
@@ -13,23 +15,26 @@ def filter_unique(tuple_players):
     elif len(tuple_players) == 3:
         set_player1, set_player2, set_player3 = tuple_players
         return set(set_player1).union(set(set_player2)).union(set(set_player3))
+    else:
+        print("Max 3 players supported")
+        return set()
 
 
-def filter_common(tuple_players):
+def filter_common(players: tuple) -> set:
     """This function filters all the shared achievements"""
-    if len(tuple_players) == 2:
-        set_player1, set_player2 = tuple_players
-        return set(set_player1).intersection(set(set_player2))
-    elif len(tuple_players) == 3:
-        set_player1, set_player2, set_player3 = tuple_players
-        return (
-            set(set_player1)
-            .intersection(set(set_player2))
-            .intersection(set(set_player3))
-        )
+    if len(players) == 2:
+        player1, player2 = players
+        return set(player1).intersection(set(player2))
+    elif len(players) == 3:
+        player1, player2, player3 = players
+        return (set(player1).intersection(set(player2))
+                .intersection(set(player3)))
+    else:
+        print("Max 3 players supported")
+        return set()
 
 
-def filter_rare(all_achievements):
+def filter_rare(all_achievements: list) -> set:
     """This function filters all the functions that are unique to a player"""
     i = 0
     rare_achievements = []
@@ -62,16 +67,16 @@ def test_tracker_system():
         "speed_demon",
         "perfectionist",
     ]
-    game_achievements = create_achievements(game_achievements,
-                                            "alice", set(alice))
-    game_achievements = create_achievements(game_achievements,
-                                            "bob", set(bob))
-    game_achievements = create_achievements(game_achievements,
-                                            "charlie", set(charlie))
+    game_achievements = (create_achievements(game_achievements,
+                                             "alice", set(alice)))
+    game_achievements = (create_achievements(game_achievements,
+                                             "bob", set(bob)))
+    game_achievements = (create_achievements(game_achievements,
+                                             "charlie", set(charlie)))
     print("=== Achievement Tracker System ===")
-    print(f"\nPlayer alice achievements: {game_achievements["alice"]}")
-    print(f"Player bob achievements: {game_achievements["bob"]}")
-    print(f"Player charlie achievements: {game_achievements["charlie"]}")
+    print(f"\nPlayer alice achievements: {game_achievements['alice']}")
+    print(f"Player bob achievements: {game_achievements['bob']}")
+    print(f"Player charlie achievements: {game_achievements['charlie']}")
     unique_achievements = filter_unique((alice, bob, charlie))
     print("\n=== Achievement Analytics ===")
     print(f"All unique achievements: {unique_achievements}")
@@ -82,5 +87,9 @@ def test_tracker_system():
     print(f"\nCommon to all players: {common_achievement}")
     print(f"Rare achievements (1 player): {rare_achievements}")
     print(f"\nAlice vs Bob common: {filter_common((alice, bob))}")
-    print(f"Alice unique: {filter_rare(alice + bob).difference(set(bob))}")
-    print(f"Bob unique: {filter_rare(alice + bob).difference(set(alice))}")
+    print(f"Alice unique: {set(alice).difference(set(bob))}")
+    print(f"Bob unique: {set(bob).difference(set(alice))}")
+
+
+if __name__ == "__main__":
+    test_tracker_system()

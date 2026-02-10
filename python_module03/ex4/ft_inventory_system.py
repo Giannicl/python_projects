@@ -1,16 +1,20 @@
-def add_player(inventory, player) -> None:
+def add_player(inventory: dict, player: str) -> None:
     inventory[player] = {}
 
 
-def add_item(inventory, player, item):
+def add_item(inventory: dict, player: str, item: str) -> None:
     inventory[player][item] = {}
 
 
-def add_feature(inventory, player, item, feature, value):
+def add_feature(
+    inventory: dict, player: str, item: str, feature: str, value: str | int
+) -> None:
     inventory[player][item][feature] = value
 
 
-def count_amount_type(inventory, player, feature, value):
+def count_amount_type(
+    inventory: dict, player: str, feature: str, value: str | int
+) -> int:
     count = 0
     for item_detail in inventory[player].values():
         if item_detail[feature] == value:
@@ -18,13 +22,16 @@ def count_amount_type(inventory, player, feature, value):
     return count
 
 
-def transfer_items(inventory, player1, player2, item, feature, quantity):
+def transfer_items(
+    inventory: dict, player1: str, player2: str,
+    item: str, feature: str, quantity: int
+) -> None:
     inventory[player1][item][feature] -= quantity
     inventory[player2][item][feature] += quantity
     print("Transaction successful!")
 
 
-def most_valuable_player(inventory):
+def most_valuable_player(inventory: dict) -> str:
     most_valuable = ""
     max_gold = 0
     gold = 0
@@ -37,7 +44,7 @@ def most_valuable_player(inventory):
     return most_valuable
 
 
-def player_most_items(inventory):
+def player_most_items(inventory: dict) -> str:
     player_most_items = ""
     max_item_count = 0
     count = 0
@@ -49,7 +56,7 @@ def player_most_items(inventory):
     return player_most_items
 
 
-def rarest_items(inventory):
+def rarest_items(inventory: dict) -> None:
     count = 0
     list_rarest_items = []
     list_size = 0
@@ -72,7 +79,7 @@ def rarest_items(inventory):
         i += 1
 
 
-def test_inventory_system():
+def test_inventory_system() -> None:
 
     inventory = {}
     player1 = "Alice"
@@ -121,12 +128,6 @@ def test_inventory_system():
     add_feature(inventory, player2, item, "rarity", "uncommon")
     add_feature(inventory, player2, item, "price", 100)
     add_feature(inventory, player2, item, "amount", 3)
-    item = "potion"
-    add_item(inventory, player2, item)
-    add_feature(inventory, player2, item, "type", "consumable")
-    add_feature(inventory, player2, item, "rarity", "common")
-    add_feature(inventory, player2, item, "price", 50)
-    add_feature(inventory, player2, item, "amount", 5)
 
     print("=== Player Inventory System ===")
     print("\n=== Alice's Inventory ===")
@@ -159,21 +160,11 @@ def test_inventory_system():
         f"{shield_amount}x @ {shield_price} gold each "
         f"= {shield_amount * shield_price} gold"
     )
-    sword_value = (
-        sword_amount * sword_price
-    )
-    potion_value = (
-        potion_amount * potion_price
-    )
-    shield_value = (
-        shield_amount * shield_price
-    )
+    sword_value = sword_amount * sword_price
+    potion_value = potion_amount * potion_price
+    shield_value = shield_amount * shield_price
     inventory_value = sword_value + potion_value + shield_value
-    item_count = (
-        sword_amount
-        + potion_amount
-        + shield_amount
-    )
+    item_count = sword_amount + potion_amount + shield_amount
     print(f"\nInventory value: {inventory_value} gold")
     print(f"Item count: {item_count} items")
     print(
@@ -186,8 +177,6 @@ def test_inventory_system():
     print("\n=== Transaction: Alice gives Bob 2 potions ===")
     transfer_items(inventory, player1, player2, "potion", "amount", 2)
     print("\n=== Updated Inventories ===")
-    inventory[player1]["potion"].update({"amount": 3})
-    inventory[player2]["potion"].update({"amount": 2})
     print(f"Alice potions: {inventory[player1]["potion"]["amount"]}")
     print(f"Bob potions: {inventory[player2]["potion"]["amount"]}")
     print("\n=== Inventory Analytics ===")
@@ -200,3 +189,7 @@ def test_inventory_system():
     print(f"Most items: {most_items} ({len(inventory[most_items])} items)")
     print("Rarest items: ", end="")
     rarest_items(inventory)
+
+
+if __name__ == "__main__":
+    test_inventory_system()

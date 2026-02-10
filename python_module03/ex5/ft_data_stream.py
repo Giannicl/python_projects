@@ -1,8 +1,8 @@
-def prime_gen(prime_numbers):
+def prime_gen(prime_number: int):
     count = 0
     prime_check = 1
     found = 0
-    while found < prime_numbers:
+    while found < prime_number:
         count = 0
         divisor = 1
         while divisor <= prime_check:
@@ -15,7 +15,7 @@ def prime_gen(prime_numbers):
         prime_check += 1
 
 
-def fibonacci_seq(numbers):
+def fibonacci_seq(numbers: int):
     i = 0
     prev = 0
     current = 1
@@ -25,14 +25,14 @@ def fibonacci_seq(numbers):
         elif i == 1:
             yield i, current
         else:
-            number = current + prev
+            result = current + prev
             prev = current
-            current = number
-            yield i, number
+            current = result
+            yield i, result
         i += 1
 
 
-def count_values_events(event_types, value):
+def count_values_events(event_types: list, value: str) -> int:
     count = 0
     for event in event_types:
         if value in event:
@@ -40,7 +40,7 @@ def count_values_events(event_types, value):
     return count
 
 
-def count_values_10plus(player_levels):
+def count_values_10plus(player_levels: list) -> int:
     count = 0
     for levels in player_levels:
         if levels >= 10:
@@ -48,19 +48,19 @@ def count_values_10plus(player_levels):
     return count
 
 
-def player_level_per_event(level):
+def player_level_per_event(level: int) -> list:
     player_levels = []
     player_levels += [level]
     return player_levels
 
 
-def select_event(event_number):
+def select_event(event_number: int) -> str:
     event = ["leveled up", "killed monster", "found treasure"]
     selected_event = event[event_number % len(event)]
     return selected_event
 
 
-def select_player(event_number):
+def select_player(event_number: int) -> tuple[str, int]:
     players = {
         "alice": 5,
         "bob": 12,
@@ -72,14 +72,14 @@ def select_player(event_number):
     return selected_player, player_level
 
 
-def generate_game_events(num_events):
+def generate_game_events(num_events: int):
     for event_number in range(1, num_events + 1):
         player, level_player = select_player(event_number)
         event_type = select_event(event_number)
         yield event_number, player, level_player, event_type
 
 
-def test_stream_data():
+def test_stream_data() -> None:
     print("=== Game Data Stream Processor ===")
     print("\nProcessing 1000 game events...")
     generated_event = generate_game_events(1000)
@@ -88,18 +88,18 @@ def test_stream_data():
     event_number, player, level, event_type = next(generated_event)
     player_levels += [level]
     event_types += [event_type]
-    print(f"Event {event_number}: "
-          f"Player {player} (level {level}) {event_type}")
+    print(f"Event {event_number}: Player {player} "
+          f"(level {level}) {event_type}")
     event_number, player, level, event_type = next(generated_event)
     player_levels += [level]
     event_types += [event_type]
-    print(f"Event {event_number}: "
-          f"Player {player} (level {level}) {event_type}")
+    print(f"Event {event_number}: Player {player} "
+          f"(level {level}) {event_type}")
     event_number, player, level, event_type = next(generated_event)
     player_levels += [level]
     event_types += [event_type]
-    print(f"Event {event_number}: "
-          f"Player {player} (level {level}) {event_type}")
+    print(f"Event {event_number}: Player {player} "
+          f"(level {level}) {event_type}")
     print("...")
     for event_number, player, level, event_type in generated_event:
         player_levels += [level]
@@ -111,7 +111,7 @@ def test_stream_data():
     count_levelup_events = count_values_events(event_types, "leveled up")
     print(f"High-level players (10+): {count_10plus}")
     print(f"Treasure events: {count_treasure_events}")
-    print(f"Treasure events: {count_levelup_events}")
+    print(f"Level up events: {count_levelup_events}")
     print("\nMemory usage: Constant (streaming)")
     print("Processing time: 0.045 seconds")
     print("\n=== Generator Demonstration ===")
@@ -131,3 +131,7 @@ def test_stream_data():
         else:
             print(f"{number}")
         index += 1
+
+
+if __name__ == "__main__":
+    test_stream_data()

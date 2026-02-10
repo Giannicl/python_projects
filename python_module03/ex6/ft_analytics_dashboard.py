@@ -1,10 +1,10 @@
-def get_score(player):
-    """ This function retrieves the score within a dictionary"""
+def get_score(player: dict) -> int:
+    """This function retrieves the score within a dictionary"""
     return player["score"]
 
 
-def test_analytics_dashboard():
-    """ This fuction tests the analytics dashboard"""
+def test_analytics_dashboard() -> None:
+    """This function tests the analytics dashboard"""
     players_data = [
         {
             "name": "alice",
@@ -23,7 +23,7 @@ def test_analytics_dashboard():
             "name": "bob",
             "score": 1800,
             "active": True,
-            "achievements": ["first_kill", "ld evel_10", "boss_slayer"],
+            "achievements": ["first_kill", "level_10", "boss_slayer"],
             "region": "east",
         },
         {
@@ -50,18 +50,18 @@ def test_analytics_dashboard():
         },
     ]
     print("=== Game Analytics Dashboard ===")
-    high_scorers = [player["name"] for player in players_data
-                    if player["score"] > 2000]
+    high_scorers = [player["name"]
+                    for player in players_data if player["score"] > 2000]
     print(f"High scorers (>2000): {high_scorers} ")
     scores_doubled = [player["score"] * 2 for player in players_data]
     print(f"Scores doubled: {scores_doubled}")
-    active_players = [player["name"] for player in players_data
-                      if player["active"]]
+    active_players = [player["name"]
+                      for player in players_data if player["active"]]
     print(f"Active players: {active_players}")
     print("\n=== Dict Comprehension Examples ===")
     players_scores = {
-        player["name"]: player["score"] for player in players_data
-        if player["active"]
+        player["name"]: player["score"]
+        for player in players_data if player["active"]
     }
     print(f"Player scores: {players_scores}")
     score_categories = {
@@ -86,8 +86,7 @@ def test_analytics_dashboard():
     unique_achievements = {item for item in list_achievements}
     print(f"Unique achievements: {unique_achievements}")
     active_regions = {
-        player["region"] for player in players_data
-        if player["active"] is True
+        player["region"] for player in players_data if player["active"] is True
     }
     print(f"Active regions: {active_regions}")
     print("\n=== Combined Analysis ===")
@@ -95,15 +94,16 @@ def test_analytics_dashboard():
     print(f"Total players: {total_players}")
     total_unique_achievements = len(unique_achievements)
     print(f"Total unique achievements: {total_unique_achievements}")
-    average_score = sum([player["score"] for player
-                         in players_data]) / total_players
+    average_score = sum([player["score"]
+                         for player in players_data]) / total_players
     print(f"Average score: {average_score}")
     top_performer = max(players_data, key=get_score)
     print(
-        f"Top performer: {top_performer["name"]}"
-        f"({top_performer["score"]} points,"
-        f"{len(top_performer["achievements"])} achievements)"
+        f"Top performer: {top_performer['name']} "
+        f"({top_performer['score']} points, "
+        f"{len(top_performer['achievements'])} achievements)"
     )
 
 
-test_analytics_dashboard()
+if __name__ == "__main__":
+    test_analytics_dashboard()

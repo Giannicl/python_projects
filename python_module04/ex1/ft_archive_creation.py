@@ -1,5 +1,5 @@
-def main():
-    """ This function writes to a file and checks if it is saved correctly"""
+def main() -> None:
+    """This function writes to a file and checks if it is saved correctly"""
     try:
         print("=== CYBER ARCHIVES - PRESERVATION SYSTEM ===")
         filename = "new_discovery.txt"
@@ -17,10 +17,11 @@ def main():
         file.close()
         print("Data inscription complete. Storage unit sealed.")
         print(f"Archive '{filename}' ready for long-term preservation.")
-    except FileNotFoundError:     
+    except FileNotFoundError:
         print("ERROR: Storage vault not found. Run data generator first.")
-    except Exception: 
+    except Exception:
         print("ERROR: Archive creation failed")
 
 
-main()
+if __name__ == "__main__":
+    main()
