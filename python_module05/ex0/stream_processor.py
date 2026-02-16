@@ -1,32 +1,38 @@
-from typing import Any, List, Dict, Union, Optional
+from typing import Any, List
 from abc import ABC, abstractmethod
+
 
 class DataProcessor(ABC):
     @abstractmethod
     def process(self, data: Any) -> str:
         pass
+
     @abstractmethod
     def validate(self, data: Any) -> bool:
         pass
+
     def format_output(self, result: str) -> str:
         return f"Output: {result}"
 
+
 class NumericProcessor(DataProcessor):
-    def process(self, data: Any) -> str: 
+    def process(self, data: Any) -> str:
         if not self.validate(data):
             return "Error: invalid data type. Expected integer"
-        print("Validation: Text data verified")
+        print("Validation: Numeric data verified")
         count = len(data)
         total = sum(data)
         average = total / count
         return f"Processed {count} numeric values, sum={total}, avg={average}"
+
     def validate(self, data: Any) -> bool:
-        if not isinstance(data, list):
+        if not isinstance(data, List):
             return False
-        for item in data: 
+        for item in data:
             if not isinstance(item, (int, float)):
                 return False
         return True
+
 
 class TextProcessor(DataProcessor):
     def process(self, data: Any) -> str:
@@ -36,31 +42,34 @@ class TextProcessor(DataProcessor):
         characters = len(data)
         words = len(data.split())
         return f"Processed text: {characters} characters, {words} words"
+
     def validate(self, data: Any) -> bool:
-        return isinstance(data, str) 
+        return isinstance(data, str)
+
 
 class LogProcessor(DataProcessor):
     def process(self, data: Any) -> str:
         if not self.validate(data):
             return "Error: invalid data type. Expected string"
-        print("Validation: Text data verified")
-        log = data.split(':', 1)
+        print("Validation: Log entry verified")
+        log = data.split(":", 1)
         level = log[0]
         message = log[1].strip()
         prefix = "ALERT" if level == "ERROR" else level
         return f"[{prefix}] {level} level detected: {message}"
+
     def validate(self, data: Any) -> bool:
-        return isinstance(data, str) 
+        return isinstance(data, str)
 
 
-def main():
+def main() -> None:
     print("=== CODE NEXUS - DATA PROCESSOR FOUNDATION ===")
     try:
         print("\nInitializing Numeric Processor...")
         numeric_processor = NumericProcessor()
         data = [1, 2, 3, 4, 5]
         print(f"Processing data: {data}")
-        result = numeric_processor.process(numeric_data)
+        result = numeric_processor.process(data)
         output = numeric_processor.format_output(result)
         print(output)
     except Exception as e:
@@ -80,26 +89,17 @@ def main():
         log_proc = LogProcessor()
         log_data = "ERROR: Connection timeout"
         print(f'Processing data: "{log_data}"')
-        print("Validation: Log entry verified")
         result = log_proc.process(log_data)
         output = log_proc.format_output(result)
         print(output)
     except Exception as e:
         print(f"Error processing log data: {e}")
-    
+
     try:
         print("\n=== Polymorphic Processing Demo ===")
         print("Processing multiple data types through same interface...")
-        processors = [
-            NumericProcessor(),
-            TextProcessor(),
-            LogProcessor()
-        ]
-        data_samples = [
-            [1, 2, 3],
-            "Hello World",
-            "INFO: System ready"
-        ]
+        processors = [NumericProcessor(), TextProcessor(), LogProcessor()]
+        data_samples = [[1, 2, 3], "Hello World", "INFO: System ready"]
         result_number = 1
         for i in range(len(processors)):
             try:
@@ -115,4 +115,6 @@ def main():
     except Exception as e:
         print(f"Error in polymorphic processing: {e}")
 
-main()
+
+if __name__ == "__main__":
+    main()
