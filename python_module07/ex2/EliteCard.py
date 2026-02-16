@@ -65,7 +65,7 @@ class EliteCard(Combatable, Magical, Card):
         self.mana = self.mana + amount
         return {"channeled": amount, "total_mana": self.mana}
 
-    def get_combat_stats(self):
+    def get_combat_stats(self) -> Dict:
         return {
             "attack_power": self.attack_power,
             "health": self.health,
@@ -73,7 +73,7 @@ class EliteCard(Combatable, Magical, Card):
             "defence": self.defence,
         }
 
-    def get_magic_stats(self):
+    def get_magic_stats(self) -> Dict:
         return {
             "current_mana": self.mana,
             "spell_power": self.power,

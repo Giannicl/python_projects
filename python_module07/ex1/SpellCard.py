@@ -13,10 +13,11 @@ class SpellCard(Card):
         if self.effect_type == "damage":
             effect = f"Deal {self.power} {self.effect_type} to target"
         elif self.effect_type == "heal":
-            effect = f"Gain {power} HP"
+            effect = f"Gain {self.power} HP"
         else:
             effect = f"{self.effect_type} spell cast"
-        return {"card_played": self.name, "mana_used": self.cost, "effect": effect}
+        return {"card_played": self.name,
+                "mana_used": self.cost, "effect": effect}
 
     def resolve_effect(self, targets: List) -> Dict:
         return {

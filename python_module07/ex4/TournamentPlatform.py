@@ -92,5 +92,5 @@ class TournamentPlatform:
             "total_cards": size,
             "matches_played": self.matches_played,
             "average_rating": average_rating,
-            "platorm_status": "active",
+            "platform_status": "active",
         }

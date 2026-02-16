@@ -1,5 +1,6 @@
-from typing import Dict, List
+from typing import List
 from ex3.GameStrategy import GameStrategy
+
 
 class AggressiveStrategy(GameStrategy):
     def execute_turn(self, hand: list, battlefield: list) -> dict:
@@ -16,7 +17,7 @@ class AggressiveStrategy(GameStrategy):
                 creatures = creatures + [item]
             else:
                 remainder = remainder + [item]
-            
+
         for item in creatures:
             size_creatures = size_creatures + 1
         for item in remainder:
@@ -35,19 +36,21 @@ class AggressiveStrategy(GameStrategy):
         cards_played = creatures + remainder
         name_cards_played = []
         for card in cards_played:
-           name_cards_played = name_cards_played + [card.name + f" ({card.cost})"] 
-
+            name_cards_played = name_cards_played + [card.name +
+                                                     f" ({card.cost})"]
 
         for card in battlefield:
             if card.__class__.__name__ == "CreatureCard":
                 damage_dealt = damage_dealt + card.attack
         for card in cards_played:
             mana_used = mana_used + card.cost
-        return {'strategy': 'AggressiveStrategy',
-                'cards_played': name_cards_played,
-                'mana_used': mana_used,
-                'damage_dealt': damage_dealt
-                }
+        return {
+            "strategy": "AggressiveStrategy",
+            "cards_played": name_cards_played,
+            "mana_used": mana_used,
+            "damage_dealt": damage_dealt,
+        }
+
     def get_strategy_name(self) -> str:
         return "AggressiveStrategy"
 

@@ -1,10 +1,10 @@
-from abc import ABC, abstractmethod
-from typing import Dict, List, Any, Protocol
+from typing import Dict, Any
 from ex0.Card import Card
 
 
 class CreatureCard(Card):
-    def __init__(self, name: str, cost: int, rarity: str, attack: int, health: int):
+    def __init__(self, name: str, cost: int, rarity: str,
+                 attack: int, health: int):
         super().__init__(name, cost, rarity)
         self.attack = attack
         self.health = health
@@ -30,6 +30,3 @@ class CreatureCard(Card):
         info['attack'] = self.attack
         info['health'] = self.health
         return info
-
-
-

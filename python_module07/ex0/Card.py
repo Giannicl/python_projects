@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Dict, List, Any, Protocol
+from typing import Dict
 
 
 class Card(ABC):
@@ -10,6 +10,7 @@ class Card(ABC):
 
     @abstractmethod
     def play(self, game_state: Dict) -> Dict: ...
+
     def get_card_info(self) -> Dict:
         return {"name": self.name, "cost": self.cost, "rarity": self.rarity}
 

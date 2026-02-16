@@ -15,13 +15,16 @@ def main():
     print("\nPlaying Arcane Warrior (Elite Card):")
 
     print("\nCombat phase:")
-    arcane_warrior = EliteCard("Arcane Warrior", 8, "Ultra rare", 5, 15, 20, "melee")
+    arcane_warrior = EliteCard("Arcane Warrior", 8,
+                               "Ultra rare", 5, 15, 20, "melee")
     print(f"Attack result: {arcane_warrior.attack('Enemy')}")
     print(f"Defense result: {arcane_warrior.defend(5)}")
     print("\nMagic phase:")
-    print(f"Spell cast: {arcane_warrior.cast_spell('Fireball', ['Enemy1', 'Enemy2'])}")
+    print(f"Spell cast: {arcane_warrior.cast_spell('Fireball',
+                                                   ['Enemy1', 'Enemy2'])}")
     print(f"Mana channel: {arcane_warrior.channel_mana(3)}")
     print("\nMultiple interface implementation successful!")
 
 
-main()
+if __name__ == "__main__":
+    main()

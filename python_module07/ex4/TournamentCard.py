@@ -1,7 +1,7 @@
 from ex0.Card import Card
 from ex2.Combatable import Combatable
 from ex4.Rankable import Rankable
-from typing import Dict, List
+from typing import Dict
 
 
 class TournamentCard(Card, Combatable, Rankable):
@@ -48,7 +48,7 @@ class TournamentCard(Card, Combatable, Rankable):
             "still_alive": alive,
         }
 
-    def get_combat_stats(self):
+    def get_combat_stats(self) -> Dict:
         return {
             "attack_power": self.attack_power,
             "health": self.health,

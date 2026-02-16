@@ -10,7 +10,8 @@ def main():
     deck = Deck()
     lightning_bolt = SpellCard("Lightning Bolt", 4, "common", "damage")
     deck.add_card(lightning_bolt)
-    mana_crystal = ArtifactCard("Mana Crystal", 3, "ultra rare", -1, "+1 mana per turn")
+    mana_crystal = ArtifactCard("Mana Crystal", 3, "ultra rare", -1,
+                                "+1 mana per turn")
     deck.add_card(mana_crystal)
     fire_dragon = CreatureCard("Fire Dragon", 5, "rare", 3, 10)
     deck.add_card(fire_dragon)
@@ -29,7 +30,9 @@ def main():
     print(f"\nDrew: {card3.name} (Creature)")
     print(f"Play result: {card3.play({})}")
 
-    print("\nPolymorphism in action: Same interface, different card behaviors!")
+    print("\nPolymorphism in action: Same interface, "
+          "different card behaviors!")
 
 
-main()
+if __name__ == "__main__":
+    main()
