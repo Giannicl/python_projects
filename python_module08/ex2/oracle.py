@@ -1,12 +1,14 @@
 import os
-import sys
 
-def load_environment_file()-> bool:
+
+def load_environment_file() -> bool:
     try:
         from dotenv import load_dotenv
+
         return load_dotenv()
     except ImportError:
         return False
+
 
 class Config:
     def __init__(self):
@@ -15,6 +17,7 @@ class Config:
         self.api_key = os.environ.get("API_KEY")
         self.log_level = os.environ.get("LOG_LEVEL")
         self.zion_endpoint = os.environ.get("ZION_ENDPOINT")
+
 
 def display_configuration(config: Config) -> None:
     print("ORACLE STATUS: Reading the Matrix...")
@@ -38,18 +41,22 @@ def display_configuration(config: Config) -> None:
     else:
         print("Zion Network: Offline")
 
+
 def display_security_checks() -> None:
     print("\nEnvironment security check:")
     print("[OK] No hardcoded secrets detected")
     print("[OK] .env file properly configured")
     print("[OK] Production overrides available")
 
+
 def main() -> None:
     load_environment_file()
-    
+
     config = Config()
     display_configuration(config)
-    display_security_checks()    
+    display_security_checks()
     print("\nThe Oracle sees all configurations.")
 
-main()
+
+if __name__ == "__main__":
+    main()
