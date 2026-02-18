@@ -1,37 +1,37 @@
-from typing import Any
+from typing import Any, Callable, Dict
 
 
-def mage_counter() -> callable:
-    count = 0
+def mage_counter() -> Callable:
+    count: int = 0
 
     def counter() -> int:
         nonlocal count
-        count = count + 1
+        count: int = count + 1
         return count
 
     return counter
 
 
-def spell_accumulator(initial_power: int) -> callable:
-    power = initial_power
+def spell_accumulator(initial_power: int) -> Callable:
+    power: int = initial_power
 
     def power_up(amount: int) -> int:
         nonlocal power
-        power = power + amount
+        power: int = power + amount
         return power
 
     return power_up
 
 
-def enchantment_factory(enchantment_type: str) -> callable:
+def enchantment_factory(enchantment_type: str) -> Callable:
     def apply(item_name: str) -> str:
         return f"{enchantment_type} {item_name}"
 
     return apply
 
 
-def memory_vault() -> dict[str, callable]:
-    memory = {}
+def memory_vault() -> dict[str, Callable]:
+    memory: Dict = {}
 
     def store(key: str, value: Any) -> None:
         memory[key] = value
@@ -65,4 +65,5 @@ def main():
     print(f"{enchantment2}")
 
 
-main()
+if __name__ == "__main__":
+    main()

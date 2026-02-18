@@ -2,6 +2,7 @@ from pydantic import Field, BaseModel, ValidationError
 from datetime import datetime
 from typing import Optional
 
+
 class SpaceStation(BaseModel):
     station_id: str = Field(min_length=3, max_length=10)
     name: str = Field(min_length=1, max_length=50)
@@ -11,19 +12,20 @@ class SpaceStation(BaseModel):
     last_maintenance: datetime
     is_operational: bool = Field(default=True)
     notes: Optional[str] = Field(default=None, max_length=200)
-    
-def main()-> None:
-    try:    
+
+
+def main() -> None:
+    try:
         spacestation = SpaceStation(
-                        station_id = "ISS001", 
-                        name = "International Space Station",
-                        crew_size = 6,
-                        power_level = 85.5,
-                        oxygen_level = 92.3,
-                        is_operational = True,
-                        last_maintenance = "2013-11-04T11:11:11"
-                    )
-    
+            station_id="ISS001",
+            name="International Space Station",
+            crew_size=6,
+            power_level=85.5,
+            oxygen_level=92.3,
+            is_operational=True,
+            last_maintenance="2013-11-04T11:11:11",
+        )
+
         print("Space Station Data Validation")
         print("========================================")
         print("Valid station created:")
@@ -36,21 +38,23 @@ def main()-> None:
             print("Status: Operational")
         else:
             print("Status: Not operational")
-    
+
         print("========================================")
         print("Expected validation error:")
-        spacestation2 = SpaceStation(
-                        station_id = "ISS002", 
-                        name = "International Space Station",
-                        crew_size = 38,
-                        power_level = 85.5,
-                        oxygen_level = 92.3,
-                        is_operational = True,
-                        last_maintenance = "2013-11-04T11:11:11"
+        SpaceStation(
+            station_id="ISS002",
+            name="International Space Station",
+            crew_size=38,
+            power_level=85.5,
+            oxygen_level=92.3,
+            is_operational=True,
+            last_maintenance="2013-11-04T11:11:11",
         )
-    except  ValidationError:
+    except ValidationError:
         print("Input should be less than or equal to 20")
     except Exception:
         print("Error")
-main()
 
+
+if __name__ == "__main__":
+    main()

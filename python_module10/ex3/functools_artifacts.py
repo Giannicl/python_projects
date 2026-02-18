@@ -71,4 +71,5 @@ def main() -> None:
     print(f"Fib(15): {fibonacci15}")
 
 
-main()
+if __name__ == "__main__":
+    main()

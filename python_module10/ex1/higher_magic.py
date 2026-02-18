@@ -1,24 +1,27 @@
-def spell_combiner(spell1: callable, spell2: callable) -> callable:
+from typing import Callable, List, Tuple
+
+
+def spell_combiner(spell1: Callable, spell2: Callable) -> Callable:
     def combined(*args):
-        result1 = spell1(*args)
-        result2 = spell2(*args)
+        result1: Callable = spell1(*args)
+        result2: Callable = spell2(*args)
 
         return (result1, result2)
 
     return combined
 
 
-def power_amplifier(base_spell: callable, multiplier: int) -> callable:
+def power_amplifier(base_spell: Callable, multiplier: int) -> Callable:
     def multiply(*args):
-        result = base_spell(*args)
+        result: int = base_spell(*args)
         return result * multiplier
 
     return multiply
 
 
-def conditional_caster(condition: callable, spell: callable) -> callable:
+def conditional_caster(condition: Callable, spell: Callable) -> Callable:
     def function(*args):
-        result = condition(*args)
+        result: Callable = condition(*args)
         if result:
             return spell(*args)
         else:
@@ -27,11 +30,11 @@ def conditional_caster(condition: callable, spell: callable) -> callable:
     return function
 
 
-def spell_sequence(spells: list[callable]) -> callable:
+def spell_sequence(spells: list[Callable]) -> Callable:
     def ordered_cast(*args):
-        results = []
+        results: List = []
         for spel in spells:
-            results = results + [spel(*args)]
+            results: List = results + [spel(*args)]
         return results
 
     return ordered_cast
@@ -46,8 +49,8 @@ def main() -> None:
     def heal(target: str) -> str:
         return f"Heals {target}"
 
-    combined = spell_combiner(attack, heal)
-    combined_result = combined("Dragon")
+    combined: Callable = spell_combiner(attack, heal)
+    combined_result: Tuple[str, str] = combined("Dragon")
 
     print(f"Combined spell result: {combined_result[0], combined_result[1]}")
 
@@ -56,9 +59,10 @@ def main() -> None:
     def base_spell(number: int) -> int:
         return number + 5
 
-    amplified = power_amplifier(base_spell, 2)
-    amplified_result = amplified(10)
+    amplified: Callable = power_amplifier(base_spell, 2)
+    amplified_result: int = amplified(10)
     print(f"Original: 10, Amplified: {amplified_result}")
 
 
-main()
+if __name__ == "__main__":
+    main()
