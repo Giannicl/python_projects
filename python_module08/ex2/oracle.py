@@ -11,7 +11,7 @@ def load_environment_file() -> bool:
 
 
 class Config:
-    def __init__(self):
+    def __init__(self) -> None:
         self.matrix_mode = os.environ.get("MATRIX_MODE")
         self.database_url = os.environ.get("DATABASE_URL")
         self.api_key = os.environ.get("API_KEY")
@@ -52,7 +52,7 @@ def display_security_checks() -> None:
 def main() -> None:
     load_environment_file()
 
-    config = Config()
+    config: Config = Config()
     display_configuration(config)
     display_security_checks()
     print("\nThe Oracle sees all configurations.")

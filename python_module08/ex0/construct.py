@@ -15,7 +15,7 @@ def is_virtual_environment() -> bool:
 
 
 def get_virtual_environment_name() -> str:
-    virtual_environment = os.environ.get("VIRTUAL_ENV")
+    virtual_environment: str | None = os.environ.get("VIRTUAL_ENV")
     if virtual_environment:
         return os.path.basename(virtual_environment)
     return "None detected"
@@ -33,7 +33,7 @@ def display_outside_matrix() -> None:
     print("The machines can see everything you install.")
     print("\nTo enter the construct, run:")
     print("python -m venv matrix_env")
-    print("source matrix_env/bin/activate  # On Unix")
+    print("source matrix_env/bin/activate # On Unix")
     print("matrix_env")
     print("Scripts")
     print("activate #   On Windows")
@@ -59,4 +59,5 @@ def main() -> None:
         display_outside_matrix()
 
 
-main()
+if __name__ == "__main__":
+    main()
