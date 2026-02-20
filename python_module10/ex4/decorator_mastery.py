@@ -1,24 +1,24 @@
 from functools import wraps
-from typing import Any
+from typing import Any, Callable
 
 
-def spell_timer(func: callable) -> callable:
+def spell_timer(func: Callable) -> Callable:
     @wraps(func)
     def wrapper(*args, **kwargs) -> Any:
         print(f"Casting {func.__name__}...")
-        result = func(*args, **kwargs)
-        print(f"Spell completed in 0.101 seconds")
+        result: Callable = func(*args, **kwargs)
+        print("Spell completed in 0.101 seconds")
         return result
 
     return wrapper
 
 
-def power_validator(min_power: int) -> callable:
-    def decorator(func: callable) -> callable:
+def power_validator(min_power: int) -> Callable:
+    def decorator(func: Callable) -> Callable:
         @wraps(func)
         def wrapper(*args, **kwargs) -> Any:
             try:
-                power = args[2]
+                power: int = args[2]
 
                 if power >= min_power:
                     return func(*args, **kwargs)
@@ -33,23 +33,25 @@ def power_validator(min_power: int) -> callable:
     return decorator
 
 
-def retry_spell(max_attempts: int) -> callable:
-    def decorator(func: callable) -> callable:
+def retry_spell(max_attempts: int) -> Callable:
+    def decorator(func: Callable) -> Callable:
         @wraps(func)
         def wrapper(*args, **kwargs) -> Any:
-            attempt = 1
+            attempt: int = 1
             while attempt <= max_attempts:
                 try:
-                    result = func(*args, **kwargs)
+                    result: Any = func(*args, **kwargs)
                     return result
                 except Exception:
                     if attempt == max_attempts:
-                        return f"Spell casting failed after {max_attempts} attempts"
+                        return (f"Spell casting failed after {max_attempts} "
+                                "attempts")
                     else:
-                        attempt = attempt + 1
                         print(
-                            f"Spell failed, retrying... (attempt {attempt}/{max_attempts})"
+                            "Spell failed, retrying... "
+                            f"(attempt {attempt}/{max_attempts})"
                         )
+                        attempt: int = attempt + 1
 
         return wrapper
 
@@ -59,12 +61,12 @@ def retry_spell(max_attempts: int) -> callable:
 class MageGuild:
     @staticmethod
     def validate_mage_name(name: str) -> bool:
-        size = 0
+        size: int = 0
         for character in name:
-            size = size + 1
-            is_space = character == " "
-            is_lower_case = "a" <= character <= "z"
-            is_upper_case = "A" <= character <= "Z"
+            size: int = size + 1
+            is_space: bool = character == " "
+            is_lower_case: bool = "a" <= character <= "z"
+            is_upper_case: bool = "A" <= character <= "Z"
             if not (is_space or is_lower_case or is_upper_case):
                 return False
         if size < 3:
@@ -79,20 +81,23 @@ class MageGuild:
 
 
 def main() -> None:
-    print("Testing spell timer...")
+    try:
+        print("Testing spell timer...")
 
-    @spell_timer
-    def fireball():
-        return "Fireball cast!"
+        @spell_timer
+        def fireball() -> str:
+            return "Fireball cast!"
 
-    print(f"Result: {fireball()}")
+        print(f"Result: {fireball()}")
 
-    print("\nTesting MageGuild...")
-    mage_guild = MageGuild()
-    print(f"{mage_guild.validate_mage_name("Fireball")}")
-    print(f"{mage_guild.validate_mage_name("T@!=")}")
-    print(f"{mage_guild.cast_spell("Fireball", 15)}")
-    print(f"{mage_guild.cast_spell("Tornado", 5)}")
+        print("\nTesting MageGuild...")
+        mage_guild: MageGuild = MageGuild()
+        print(f"{mage_guild.validate_mage_name("Fireball")}")
+        print(f"{mage_guild.validate_mage_name("T@!=")}")
+        print(f"{mage_guild.cast_spell("Fireball", 15)}")
+        print(f"{mage_guild.cast_spell("Tornado", 5)}")
+    except Exception:
+        print("Error")
 
 
 if __name__ == "__main__":

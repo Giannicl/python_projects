@@ -1,10 +1,10 @@
-from typing import Callable, List, Tuple
+from typing import Callable, List, Tuple, Any
 
 
 def spell_combiner(spell1: Callable, spell2: Callable) -> Callable:
     def combined(*args):
-        result1: Callable = spell1(*args)
-        result2: Callable = spell2(*args)
+        result1: Any = spell1(*args)
+        result2: Any = spell2(*args)
 
         return (result1, result2)
 
@@ -21,7 +21,7 @@ def power_amplifier(base_spell: Callable, multiplier: int) -> Callable:
 
 def conditional_caster(condition: Callable, spell: Callable) -> Callable:
     def function(*args):
-        result: Callable = condition(*args)
+        result: Any = condition(*args)
         if result:
             return spell(*args)
         else:
@@ -41,27 +41,31 @@ def spell_sequence(spells: list[Callable]) -> Callable:
 
 
 def main() -> None:
-    print("Testing spell combiner...")
+    try:
+        print("Testing spell combiner...")
 
-    def attack(target: str) -> str:
-        return f"Fireball hits {target}"
+        def attack(target: str) -> str:
+            return f"Fireball hits {target}"
 
-    def heal(target: str) -> str:
-        return f"Heals {target}"
+        def heal(target: str) -> str:
+            return f"Heals {target}"
 
-    combined: Callable = spell_combiner(attack, heal)
-    combined_result: Tuple[str, str] = combined("Dragon")
+        combined: Callable = spell_combiner(attack, heal)
+        combined_result: Tuple[str, str] = combined("Dragon")
 
-    print(f"Combined spell result: {combined_result[0], combined_result[1]}")
+        print(f"Combined spell result: {combined_result[0]}, "
+              f"{combined_result[1]}")
 
-    print("\nTesting power amplifier...")
+        print("\nTesting power amplifier...")
 
-    def base_spell(number: int) -> int:
-        return number + 5
+        def base_spell(number: int) -> int:
+            return number + 5
 
-    amplified: Callable = power_amplifier(base_spell, 2)
-    amplified_result: int = amplified(10)
-    print(f"Original: 10, Amplified: {amplified_result}")
+        amplified: Callable = power_amplifier(base_spell, 2)
+        amplified_result: int = amplified(10)
+        print(f"Original: 10, Amplified: {amplified_result}")
+    except Exception:
+        print("Error")
 
 
 if __name__ == "__main__":

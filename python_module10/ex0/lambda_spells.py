@@ -34,20 +34,26 @@ def mage_stats(mages: List[Dict]) -> Dict:
 
 
 def main() -> None:
-    print("Testing artifact sorter...")
-    artifacts: List[Dict] = [
-        {"name": "Crystal Orb", "power": 85, "type": "magic"},
-        {"name": "Fire Staff", "power": 92, "type": "weapon"},
-    ]
-    sorted_artifacts: List[Dict] = artifact_sorter(artifacts)
-    print(
-        f"{sorted_artifacts[0]['name']} ({sorted_artifacts[0]['power']} power) comes before {sorted_artifacts[1]['name']} ({sorted_artifacts[1]['power']} power)"
-    )
+    try:
+        print("Testing artifact sorter...")
+        artifacts: List[Dict] = [
+            {"name": "Crystal Orb", "power": 85, "type": "magic"},
+            {"name": "Fire Staff", "power": 92, "type": "weapon"},
+        ]
+        sorted_artifacts: List[Dict] = artifact_sorter(artifacts)
+        print(
+            f"{sorted_artifacts[0]['name']} "
+            f"({sorted_artifacts[0]['power']} power) "
+            f"comes before {sorted_artifacts[1]['name']} "
+            f"({sorted_artifacts[1]['power']} power)"
+        )
 
-    print("\nTesting spell transformer...")
-    spells: List = ["fireball", "heal", "shield"]
-    transformed: List[str] = spell_transformer(spells)
-    print(f" {transformed[0]} {transformed[1]} {transformed[2]}")
+        print("\nTesting spell transformer...")
+        spells: List = ["fireball", "heal", "shield"]
+        transformed: List[str] = spell_transformer(spells)
+        print(f" {transformed[0]} {transformed[1]} {transformed[2]}")
+    except Exception:
+        print("Error")
 
 
 if __name__ == "__main__":
